@@ -8,6 +8,7 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import { saveProfile } from "./redux/actions/authActions";
 import NotFound from "./pages/NotFound";
+import Completed from "./pages/Completed";
 
 function App() {
   const authState = useSelector((state) => state.authReducer);
@@ -55,6 +56,7 @@ function App() {
           />
           <Route path="/stats" element={<TaskCard />} />
           <Route path="*" element={<NotFound />} />
+          <Route path="/completed" element={<Completed />} />
         </Routes>
       </BrowserRouter>
     </>

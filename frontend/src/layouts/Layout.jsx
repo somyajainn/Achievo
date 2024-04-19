@@ -2,7 +2,7 @@ import React from "react";
 import Header from "../components/Header";
 import TaskCard from "../components/TaskCard";
 import Sidebar from "../components/Sidebar";
-import Chart from "../components/Chart";
+import TaskStats from "../components/Chart";
 import TaskTable from "../components/TaskTable";
 const Layout = () => {
   return (
@@ -14,7 +14,7 @@ const Layout = () => {
           <TaskCard />
           {/* <br></br> */}
           <div className="flex flex-row gap-4 w-full">
-            <Chart />
+            <TaskStats />
           </div>
           {/* <br></br> */}
           <div className="flex flex-row gap-4 w-full ">

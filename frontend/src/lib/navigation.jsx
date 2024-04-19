@@ -23,7 +23,7 @@ export const DASHBOARD_SIDEBAR_LINKS = [
     key: "completed",
     label: "Completed",
     path: "/completed",
-    filePath: "/completed.jsx",
+    filePath: "../pages/Completed.jsx",
     icon: <MdTaskAlt />,
   },
   {
