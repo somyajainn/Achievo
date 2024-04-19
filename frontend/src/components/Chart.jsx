@@ -1,94 +1,43 @@
-import React from "react";
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  ResponsiveContainer,
-} from "recharts";
+// import React, { useState, useEffect } from "react";
+// import Chart from "./Chart";
 
-const data = [
-  {
-    name: "Jan",
-    Task: 40,
-  },
-  {
-    name: "Feb",
-    Task: 30,
-  },
-  {
-    name: "Mar",
-    Task: 24,
-  },
-  {
-    name: "Apr",
-    Task: 27,
-  },
-  {
-    name: "May",
-    Task: 18,
-  },
-  {
-    name: "Jun",
-    Task: 50,
-  },
-  {
-    name: "July",
-    Task: 34,
-  },
-  {
-    name: "Aug",
-    Task: 40,
-  },
-  {
-    name: "Sep",
-    Task: 56,
-  },
-  {
-    name: "Oct",
-    Task: 58,
-  },
-  {
-    name: "Nov",
-    Task: 40,
-  },
-  {
-    name: "Dec",
-    Task: 39,
-  },
-];
+// const TaskStats = () => {
+//   const [taskStats, setTaskStats] = useState({
+//     totalTasks: 0,
+//     dailyTasks: 0,
+//     weeklyTasks: 0,
+//     monthlyTasks: 0,
+//   });
 
-function Chart() {
-  return (
-    <div className="h-[22rem] bg-white p-4 rounded-sm border border-gray-200 flex flex-col flex-1">
-      <strong className="text-gray-700 font-medium">Tasks Status</strong>
-      <div className="mt-3 w-full flex-1 text-xs">
-        <ResponsiveContainer width="100%" height="100%">
-          <BarChart
-            width={500}
-            height={300}
-            data={data}
-            margin={{
-              top: 20,
-              right: 10,
-              left: -10,
-              bottom: 0,
-            }}
-          >
-            <CartesianGrid strokeDasharray="3 3 0 0" vertical={false} />
-            <XAxis dataKey="name" />
-            <YAxis />
-            <Tooltip />
-            <Legend />
-            <Bar dataKey="Task" fill="#0ea5e9" />
-          </BarChart>
-        </ResponsiveContainer>
-      </div>
-    </div>
-  );
-}
+//   useEffect(() => {
+//     fetchTaskStats();
+//   }, []);
 
-export default Chart;
+//   const fetchTaskStats = async () => {
+//     try {
+//       const token = localStorage.getItem("token");
+//       const response = await fetch("http://localhost:5000/api/tasks/stats", {
+//         method: "GET",
+//         headers: {
+//           Authorization: token,
+//         },
+//       });
+//       if (response.ok) {
+//         const data = await response.json();
+//         setTaskStats(data);
+//       } else {
+//         console.error("Failed to fetch task stats");
+//       }
+//     } catch (error) {
+//       console.error("Error fetching task stats:", error);
+//     }
+//   };
+
+//   return (
+//     <div>
+//       <Chart {...taskStats} />
+//     </div>
+//   );
+// };
+
+// export default TaskStats;

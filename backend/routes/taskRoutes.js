@@ -1,4 +1,5 @@
 const express = require("express");
+const Task = require("../models/Task");
 const router = express.Router();
 const {
   getTasks,
@@ -10,12 +11,11 @@ const {
 } = require("../controllers/taskControllers");
 const { verifyAccessToken } = require("../middlewares.js");
 
-// Routes beginning with /api/tasks
 router.get("/", verifyAccessToken, getTasks);
-router.get("/:taskId", verifyAccessToken, getTask);
 router.post("/", verifyAccessToken, postTask);
+router.get("/stats", verifyAccessToken, getTasksStats);
+router.get("/:taskId", verifyAccessToken, getTask);
 router.put("/:taskId", verifyAccessToken, putTask);
 router.delete("/:taskId", verifyAccessToken, deleteTask);
-router.get("/stats", verifyAccessToken, getTasksStats);
 
 module.exports = router;

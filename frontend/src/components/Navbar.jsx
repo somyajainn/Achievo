@@ -43,7 +43,6 @@ const Navbar = () => {
         <span className="md:hidden cursor-pointer" onClick={toggleNavbar}>
           <i className="fa-solid fa-bars"></i>
         </span>
-
         {/* Navbar displayed as sidebar on smaller screens */}
         <div
           className={`absolute md:hidden right-0 top-0 bottom-0 transition ${

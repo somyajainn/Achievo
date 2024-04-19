@@ -16,8 +16,12 @@ export default function TaskCard() {
 
   const fetchTaskStats = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/stats", {
+      const token = localStorage.getItem("token");
+      const response = await fetch("http://localhost:5000/api/tasks/stats", {
         method: "GET",
+        headers: {
+          Authorization: token,
+        },
       });
       if (response.ok) {
         const data = await response.json();
