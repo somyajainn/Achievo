@@ -6,9 +6,15 @@ import TaskCard from "./components/TaskCard";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
+import Welcome from "./components/Welcome";
 import { saveProfile } from "./redux/actions/authActions";
 import NotFound from "./pages/NotFound";
 import Completed from "./pages/Completed";
+import Dashboard from "./pages/Dashboard";
+import TasksSidebar from "./pages/TasksSidebar";
+import InProgress from "./pages/InProgress";
+import ToDo from "./pages/ToDo";
+import Trash from "./pages/Trash";
 
 function App() {
   const authState = useSelector((state) => state.authReducer);
@@ -32,6 +38,12 @@ function App() {
           />
           <Route path="/login" element={<Login />} />
           <Route
+            path="/welcome"
+            element={
+              authState.isLoggedIn ? <Welcome /> : <Navigate to="/login" />
+            } // Welcome route
+          />
+          <Route
             path="/tasks/add"
             element={
               authState.isLoggedIn ? (
@@ -54,9 +66,14 @@ function App() {
               )
             }
           />
+          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/stats" element={<TaskCard />} />
           <Route path="*" element={<NotFound />} />
           <Route path="/completed" element={<Completed />} />
+          <Route path="/tasks" element={<TasksSidebar />} />
+          <Route path="/in-progress" element={<InProgress />} />
+          <Route path="/todo" element={<ToDo />} />
+          <Route path="/trash" element={<Trash />} />
         </Routes>
       </BrowserRouter>
     </>

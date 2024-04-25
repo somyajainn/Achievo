@@ -10,13 +10,15 @@ export const DASHBOARD_SIDEBAR_LINKS = [
   {
     key: "dashboard",
     label: "Dashboard",
-    path: "/",
+    path: "/dashboard",
+    filePath: "../pages/Dashboard.jsx",
     icon: <MdDashboard />,
   },
   {
     key: "tasks",
     label: "Tasks",
     path: "/Tasks",
+    filePath: "../pages/TasksSidebar.jsx",
     icon: <FaTasks />,
   },
   {
@@ -28,20 +30,23 @@ export const DASHBOARD_SIDEBAR_LINKS = [
   },
   {
     key: "in progress",
-    label: "In Progress",
-    path: "/in progress",
+    label: "InProgress",
+    path: "/in-progress",
+    filePath: "../pages/InProgress.jsx",
     icon: <MdOutlinePendingActions />,
   },
   {
     key: "todo",
     label: "ToDo",
     path: "/todo",
+    filePath: "../pages/ToDo.jsx",
     icon: <MdOutlinePendingActions />,
   },
   {
     key: "trash",
     label: "Trash",
     path: "/trash",
+    filePath: "../pages/Trash.jsx",
     icon: <FaTrashAlt />,
   },
 ];

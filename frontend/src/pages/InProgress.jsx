@@ -3,7 +3,7 @@ import Header from "../components/Header";
 import Sidebar from "../components/Sidebar";
 import TaskTable from "../components/TaskTable";
 
-function Completed() {
+function InProgress() {
   return (
     <div className="flex flex-row bg neutral-100 h-screen w-screen overflow-hidden">
       <Sidebar />
@@ -17,4 +17,4 @@ function Completed() {
   );
 }
 
-export default Completed;
+export default InProgress;
