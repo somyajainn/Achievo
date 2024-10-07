@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
+import { FaCheck, FaTrash } from "react-icons/fa";
 
-const TaskTable = () => {
+const TaskTable = ({ searchTerm }) => {
   const [tasks, setTasks] = useState([]);
 
   useEffect(() => {
@@ -40,8 +41,7 @@ const TaskTable = () => {
         }
       );
       if (response.ok) {
-        // Remove the deleted task from the state
-        setTasks(tasks.filter((task) => task._id !== taskId));
+        fetchTasks();
       } else {
         console.error("Failed to delete task");
       }
@@ -49,6 +49,54 @@ const TaskTable = () => {
       console.error("Error deleting task:", error);
     }
   };
+  const handleCompleteTask = async (taskId) => {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await fetch(
+        `http://localhost:5000/api/tasks/${taskId}/complete`,
+        {
+          method: "PUT",
+          headers: {
+            Authorization: token,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ completed: true }),
+        }
+      );
+      if (response.ok) {
+        fetchTasks();
+      } else {
+        console.error("Failed to complete task");
+      }
+    } catch (error) {
+      console.error("Error completing task:", error);
+    }
+  };
+
+  const handleSendEmail = async (userId, taskId) => {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await fetch(
+        `http://localhost:5000/api/send-email/${userId}/${taskId}`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
+      if (response.ok) {
+        console.log("Email sent successfully");
+      } else {
+        console.error("Failed to send email");
+      }
+    } catch (error) {
+      console.error("Error sending email:", error);
+    }
+  };
+  // const filteredTasks = tasks.filter((task) =>
+  //   task.title.toLowerCase().includes(searchTerm.toLowerCase())
+  // );
 
   return (
     <div className="bg-white px-4 pt-3 pb-4 rounded-sm border border-gray-200 flex-1">
@@ -59,12 +107,12 @@ const TaskTable = () => {
             <tr className="bg-gray-200">
               <th className="px-4 py-2">Serial No</th>
               <th className="px-4 py-2">ID</th>
+              <th className="px-4 py-2">Title</th>
               <th className="px-4 py-2">Description</th>
               <th className="px-4 py-2">Task Type</th>
               <th className="px-4 py-2">Created Date</th>
-              {/* <th className="px-4 py-2">Created Time</th> */}
-              <th className="px-4 py-2">Updated Date</th>
-              {/* <th className="px-4 py-2">Updated Time</th> */}
+              <th className="px-4 py-2">Reminder Date</th>
+              <th className="px-4 py-2">Completion Date</th>
               <th className="px-4 py-2">Actions</th>
             </tr>
           </thead>
@@ -76,26 +124,43 @@ const TaskTable = () => {
               >
                 <td className="border px-4 py-2">{index + 1}</td>
                 <td className="border px-4 py-2">{task._id.substr(0, 8)}</td>
+                <td className="border px-4 py-2">{task.title}</td>
                 <td className="border px-4 py-2">{task.description}</td>
                 <td className="border px-4 py-2">{task.taskType}</td>
                 <td className="border px-4 py-2">
                   {new Date(task.createdAt).toLocaleDateString()}
                 </td>
-                {/* <td className="border px-4 py-2">
-                  {new Date(task.createdAt).toLocaleTimeString()}
-                </td> */}
                 <td className="border px-4 py-2">
-                  {new Date(task.updatedAt).toLocaleDateString()}
+                  {task.reminderDate
+                    ? new Date(task.reminderDate).toLocaleDateString()
+                    : "N/A"}
                 </td>
-                {/* <td className="border px-4 py-2">
-                  {new Date(task.updatedAt).toLocaleTimeString()}
-                </td> */}
+                <td className="border px-4 py-2">
+                  {task.completionDate
+                    ? new Date(task.completionDate).toLocaleDateString()
+                    : "N/A"}
+                </td>
                 <td className="border px-4 py-2">
                   <button
                     onClick={() => handleDeleteTask(task._id)}
                     className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded focus:outline-none focus:shadow-outline"
                   >
-                    Delete
+                    <FaTrash />
+                  </button>
+                  <button
+                    onClick={() => handleCompleteTask(task._id)}
+                    className="bg-green-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded focus:outline-none focus:shadow-outline"
+                  >
+                    <FaCheck
+                      className={task.completed ? "text-blue-500" : ""}
+                    />
+                  </button>
+
+                  <button
+                    onClick={() => handleSendEmail(task._id)}
+                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded focus:outline-none focus:shadow-outline"
+                  >
+                    Send Email
                   </button>
                 </td>
               </tr>

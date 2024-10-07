@@ -1,7 +1,7 @@
 import React from "react";
 import Header from "../components/Header";
 import Sidebar from "../components/Sidebar";
-import TaskTable from "../components/TaskTable";
+import DeletedTaskTable from "../components/DeletedTaskTable";
 
 function Trash() {
   return (
@@ -10,7 +10,7 @@ function Trash() {
       <div className="flex flex-col flex-1">
         <Header />
         <div className="flex flex-row gap-4 w-full ">
-          <TaskTable />
+          <DeletedTaskTable />
         </div>
       </div>
     </div>

@@ -44,4 +44,4 @@ const useFetch = () => {
   return [fetchData, state];
 }
 
-export default useFetch
+export default useFetch;

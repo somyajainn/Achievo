@@ -28,13 +28,13 @@ export const DASHBOARD_SIDEBAR_LINKS = [
     filePath: "../pages/Completed.jsx",
     icon: <MdTaskAlt />,
   },
-  {
-    key: "in progress",
-    label: "InProgress",
-    path: "/in-progress",
-    filePath: "../pages/InProgress.jsx",
-    icon: <MdOutlinePendingActions />,
-  },
+  // {
+  //   key: "in progress",
+  //   label: "InProgress",
+  //   path: "/in-progress",
+  //   filePath: "../pages/InProgress.jsx",
+  //   icon: <MdOutlinePendingActions />,
+  // },
   {
     key: "todo",
     label: "ToDo",

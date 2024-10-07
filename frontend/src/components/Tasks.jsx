@@ -8,7 +8,9 @@ import Tooltip from "./utils/Tooltip";
 const Tasks = () => {
   const authState = useSelector((state) => state.authReducer);
   const [tasks, setTasks] = useState([]);
+  const [filteredTasks, setFilteredTasks] = useState([]); // State for filtered tasks
   const [fetchData, { loading }] = useFetch();
+  const [searchQuery, setSearchQuery] = useState(""); // State for search query
 
   const fetchTasks = useCallback(() => {
     const config = {
@@ -16,15 +18,28 @@ const Tasks = () => {
       method: "get",
       headers: { Authorization: authState.token },
     };
-    fetchData(config, { showSuccessToast: false }).then((data) =>
-      setTasks(data.tasks)
-    );
+    fetchData(config, { showSuccessToast: false }).then((data) => {
+      setTasks(data.tasks);
+    });
   }, [authState.token, fetchData]);
 
   useEffect(() => {
     if (!authState.isLoggedIn) return;
     fetchTasks();
   }, [authState.isLoggedIn, fetchTasks]);
+
+  // Function to handle search query change
+  const handleSearchChange = (event) => {
+    setSearchQuery(event.target.value); // Update search query state
+  };
+
+  useEffect(() => {
+    // Filter tasks based on search query
+    const filtered = tasks.filter((task) =>
+      task.description.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+    setFilteredTasks(filtered); // Update filtered tasks state
+  }, [tasks, searchQuery]);
 
   const handleDelete = (id) => {
     const config = {
@@ -38,27 +53,29 @@ const Tasks = () => {
   return (
     <>
       <div className="my-2 mx-auto max-w-[700px] py-4">
-        {tasks.length !== 0 && (
-          <h2 className="my-2 ml-2 md:ml-0 text-xl">
-            Your tasks ({tasks.length})
-          </h2>
-        )}
+        <input
+          type="text"
+          placeholder="Search tasks..."
+          value={searchQuery} // Bind search query state to input value
+          onChange={handleSearchChange} // Handle input change
+          className="text-sm focus:outline-none active:outline-none border border-gray-300 w-[24rem] h-10 pl-3 pr-10 rounded-sm"
+        />
         {loading ? (
           <Loader />
         ) : (
           <div>
-            {tasks.length === 0 ? (
+            {filteredTasks.length === 0 ? (
               <div className="w-[600px] h-[300px] flex items-center justify-center gap-4">
                 <span>No tasks found</span>
                 <Link
                   to="/tasks/add"
-                  className="bg-blue-500 text-white hover:bg-blue-600 font-medium rounded-md px-4 py-2"
+                  className="bg-blue-500 text-white hover:bg-8DECB4 hover:text-black font-medium rounded-md px-4 py-2"
                 >
                   + Add new task{" "}
                 </Link>
               </div>
             ) : (
-              tasks.map((task, index) => (
+              filteredTasks.map((task, index) => (
                 <div
                   key={task._id}
                   className="bg-white my-4 p-4 text-gray-600 rounded-md shadow-md"

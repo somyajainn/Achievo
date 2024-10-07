@@ -31,7 +31,6 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
-          {/* <Route index element={<Dashboard />} /> */}
           <Route
             path="/signup"
             element={authState.isLoggedIn ? <Navigate to="/" /> : <Signup />}
@@ -41,7 +40,7 @@ function App() {
             path="/welcome"
             element={
               authState.isLoggedIn ? <Welcome /> : <Navigate to="/login" />
-            } // Welcome route
+            }
           />
           <Route
             path="/tasks/add"

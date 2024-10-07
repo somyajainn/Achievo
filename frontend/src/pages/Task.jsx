@@ -16,8 +16,12 @@ const Task = () => {
   const mode = taskId === undefined ? "add" : "update";
   const [task, setTask] = useState(null);
   const [formData, setFormData] = useState({
+    title: "",
     description: "",
-    taskType: "daily", // Default to daily
+    taskType: "daily",
+    reminderDate: "",
+    reminderTime: "",
+    completionDate: "",
   });
   const [formErrors, setFormErrors] = useState({});
 
@@ -35,8 +39,12 @@ const Task = () => {
       fetchData(config, { showSuccessToast: false }).then((data) => {
         setTask(data.task);
         setFormData({
+          title: data.task.title,
           description: data.task.description,
           taskType: data.task.taskType,
+          reminderDate: data.task.reminderDate,
+          reminderTime: data.task.reminderTime,
+          completionDate: data.task.completionDate,
         });
       });
     }
@@ -52,8 +60,12 @@ const Task = () => {
   const handleReset = (e) => {
     e.preventDefault();
     setFormData({
+      title: task.title,
       description: task.description,
       taskType: task.taskType,
+      reminderDate: task.reminderDate,
+      reminderTime: task.reminderTime,
+      completionDate: task.completionDate,
     });
   };
 
@@ -103,6 +115,18 @@ const Task = () => {
               {mode === "add" ? "Add New Task" : "Edit Task"}
             </h2>
             <div className="mb-4">
+              <label htmlFor="title">Title</label>
+              <input
+                type="text"
+                name="title"
+                id="title"
+                value={formData.title}
+                onChange={handleChange}
+                className="w-full mt-1 px-3 py-2 border rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+              />
+              {fieldError("title")}
+            </div>
+            <div className="mb-4">
               <label htmlFor="description">Description</label>
               <Textarea
                 type="description"
@@ -110,6 +134,7 @@ const Task = () => {
                 id="description"
                 value={formData.description}
                 onChange={handleChange}
+                maxLength={2000}
               />
               {fieldError("description")}
             </div>
@@ -148,6 +173,42 @@ const Task = () => {
                 />
                 Monthly
               </label>
+            </div>
+            <div className="mb-4">
+              <label htmlFor="reminderDate">Reminder Date</label>{" "}
+              <input
+                type="date"
+                name="reminderDate"
+                id="reminderDate"
+                value={formData.reminderDate}
+                onChange={handleChange}
+                className="w-full mt-1 px-3 py-2 border rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+              />
+              {fieldError("reminderDate")}
+            </div>
+            <div className="mb-4">
+              <label htmlFor="reminderTime">Reminder Time</label>{" "}
+              <input
+                type="time"
+                name="reminderTime"
+                id="reminderTime"
+                value={formData.reminderTime}
+                onChange={handleChange}
+                className="w-full mt-1 px-3 py-2 border rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+              />
+              {fieldError("reminderTime")}
+            </div>
+            <div className="mb-4">
+              <label htmlFor="completionDate">Completion Date</label>
+              <input
+                type="date"
+                name="completionDate"
+                id="completionDate"
+                value={formData.completionDate}
+                onChange={handleChange}
+                className="w-full mt-1 px-3 py-2 border rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+              />
+              {fieldError("completionDate")}
             </div>
             <div className="flex justify-between">
               <button

@@ -2,9 +2,9 @@ import React from "react";
 import Header from "../components/Header";
 import TaskCard from "../components/TaskCard";
 import Sidebar from "../components/Sidebar";
-import TaskTable from "../components/TaskTable";
+import Tasks from "../components/Tasks";
 
-function Tasks() {
+function alltasks() {
   return (
     <div className="flex flex-row bg neutral-100 h-screen w-screen overflow-hidden">
       <Sidebar />
@@ -13,7 +13,7 @@ function Tasks() {
         <div className="flex-1 p-4 min-h-0 overflow-auto">
           <TaskCard />
           <div className="flex flex-row gap-4 w-full ">
-            <TaskTable />
+            <Tasks />
           </div>
         </div>
       </div>
@@ -21,4 +21,4 @@ function Tasks() {
   );
 }
 
-export default Tasks;
+export default alltasks;
